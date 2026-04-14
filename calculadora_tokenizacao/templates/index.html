@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calculadora de Custos de Tokenização</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        background: #f7f7f7;
+      }
+      h1 {
+        color: #333;
+      }
+      form {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px #0001;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+      input {
+        width: 120px;
+        padding: 4px;
+        margin-left: 10px;
+      }
+      .resultado {
+        background: #eaffea;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+      .campo {
+        margin-bottom: 10px;
+      }
+      button {
+        margin-top: 20px;
+        padding: 8px 20px;
+        font-size: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Calculadora de Custos de Tokenização</h1>
+    <form method="post">
+      <div class="campo">
+        <label
+          >Tokens de Input por requisição:
+          <input
+            type="number"
+            name="input_tokens"
+            value="{{ valores.input_tokens }}"
+            required
+        /></label>
+      </div>
+      <div class="campo">
+        <label
+          >Tokens Cached por requisição:
+          <input
+            type="number"
+            name="cached_tokens"
+            value="{{ valores.cached_tokens }}"
+            required
+        /></label>
+      </div>
+      <div class="campo">
+        <label
+          >Tokens de Output por requisição:
+          <input
+            type="number"
+            name="output_tokens"
+            value="{{ valores.output_tokens }}"
+            required
+        /></label>
+      </div>
+      <div class="campo">
+        <label
+          >Preço Input (US$/1M tokens):
+          <input
+            type="number"
+            step="0.0001"
+            name="preco_input"
+            value="{{ valores.preco_input }}"
+            required
+        /></label>
+      </div>
+      <div class="campo">
+        <label
+          >Preço Cached (US$/1M tokens):
+          <input
+            type="number"
+            step="0.0001"
+            name="preco_cached"
+            value="{{ valores.preco_cached }}"
+            required
+        /></label>
+      </div>
+      <div class="campo">
+        <label
+          >Preço Output (US$/1M tokens):
+          <input
+            type="number"
+            step="0.0001"
+            name="preco_output"
+            value="{{ valores.preco_output }}"
+            required
+        /></label>
+      </div>
+      <div class="campo">
+        <label
+          >Requisições por usuário/dia:
+          <input
+            type="number"
+            name="reqs_por_usuario"
+            value="{{ valores.reqs_por_usuario }}"
+            required
+        /></label>
+      </div>
+      <div class="campo">
+        <label
+          >Usuários ativos por dia:
+          <input
+            type="number"
+            name="usuarios"
+            value="{{ valores.usuarios }}"
+            required
+        /></label>
+      </div>
+      <div class="campo">
+        <label
+          >Dias no período:
+          <input type="number" name="dias" value="{{ valores.dias }}" required
+        /></label>
+      </div>
+      <button type="submit">Calcular</button>
+    </form>
+    {% if resultado %}
+    <div class="resultado">
+      <h2>Resultados</h2>
+      <p>
+        <strong>Custo por requisição:</strong> ${{
+        '%.6f'|format(resultado.custo_requisicao) }}
+      </p>
+      <p>
+        <strong>Custo diário por usuário:</strong> ${{
+        '%.6f'|format(resultado.custo_diario_usuario) }}
+      </p>
+      <p>
+        <strong>Custo diário total do sistema:</strong> ${{
+        '%.6f'|format(resultado.custo_diario_total) }}
+      </p>
+      <p>
+        <strong>Custo total no período ({{ valores.dias }} dias):</strong> ${{
+        '%.2f'|format(resultado.custo_periodo) }}
+      </p>
+    </div>
+    {% endif %}
+    <footer style="margin-top: 40px; color: #aaa; font-size: 0.9em">
+      Desenvolvido para simulação de custos de LLM
+    </footer>
+  </body>
+</html>
