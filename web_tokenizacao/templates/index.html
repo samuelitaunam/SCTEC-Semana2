@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Demo de Tokenização</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        background: #f7f7f7;
+      }
+      h1 {
+        color: #333;
+      }
+      form {
+        margin-bottom: 30px;
+      }
+      textarea {
+        width: 100%;
+        height: 60px;
+        font-size: 1.1em;
+      }
+      .result {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px #0001;
+        margin-bottom: 30px;
+        padding: 20px;
+      }
+      .tokens {
+        margin: 10px 0;
+      }
+      .token {
+        display: inline-block;
+        background: #e3eaff;
+        color: #222;
+        border-radius: 4px;
+        margin: 2px;
+        padding: 2px 8px;
+        font-size: 1em;
+      }
+      .algo {
+        font-size: 0.95em;
+        color: #666;
+      }
+      .ids {
+        font-size: 0.9em;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Demo de Tokenização</h1>
+    <form method="post">
+      <label for="text">Digite um texto para tokenizar:</label><br />
+      <textarea name="text" id="text">{{ text }}</textarea><br />
+      <button type="submit">Tokenizar</button>
+    </form>
+    {% if result %}
+    <h2>Resultados:</h2>
+    {% for model, data in result.items() %}
+    <div class="result">
+      <strong>{{ model }}</strong> <span class="algo">({{ data.algo }})</span
+      ><br />
+      <div class="tokens">
+        {% for token in data.tokens %}
+        <span class="token">{{ token }}</span>
+        {% endfor %}
+      </div>
+      <div class="ids">IDs: {{ data.ids }}</div>
+    </div>
+    {% endfor %} {% endif %}
+    <footer style="margin-top: 40px; color: #aaa; font-size: 0.9em">
+      Desenvolvido para demonstração de tokenização NLP
+    </footer>
+  </body>
+</html>
